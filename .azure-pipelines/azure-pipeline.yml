@@ -10,7 +10,7 @@ parameters:
 trigger:
   branches:
     include:
-    - master
+    - build
     - hotfix/*
     - feature/*
   paths:
@@ -23,13 +23,13 @@ resources:
   repositories:
   - repository: sharedTemplates
     type: github
-    name: f2calv/CasCap.YAMLTemplates
-    endpoint: github.com_f2calv
+    name: mnastp/nugget-app.YAMLTemplates
+    endpoint: github.com_mnastp
 
 variables:
-- ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+- ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/build') }}:
   - group: nuget-prod
-- ${{ if ne(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+- ${{ if ne(variables['Build.SourceBranch'], 'refs/heads/build') }}:
   - group: nuget-dev
 
 pool:
@@ -41,5 +41,5 @@ steps:
 - template: pipelines/dotnet.publish.nuget-v1.yml@sharedTemplates
   parameters:
     BuildConfiguration: ${{ parameters.BuildConfiguration }}
-    CoverageInclude: '[CasCap.*]*'
-    gitHubConnection: github.com_f2calv
+    CoverageInclude: '[nugget-app.*]*'
+    gitHubConnection: github.com_mnastp
