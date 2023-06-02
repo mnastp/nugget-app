@@ -10,7 +10,7 @@ parameters:
 trigger:
   branches:
     include:
-    - build
+    - buildd
     - hotfix/*
     - feature/*
   paths:
